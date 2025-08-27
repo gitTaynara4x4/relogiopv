@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relógio – Horário de Brasília</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #clock {
+      font-size: 6rem;
+      font-weight: bold;
+    }
+
+    #date {
+      font-size: 2rem;
+      margin-top: 10px;
+    }
+
+    #weekday {
+      font-size: 1.5rem;
+      margin-top: 5px;
+      color: #bbbbbb;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="clock">00:00</div>
+  <div id="date">00/00/0000</div>
+  <div id="weekday">Segunda-feira</div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      // Horário de Brasília
+      const optionsTime = {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'America/Sao_Paulo'
+      };
+
+      const optionsDate = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        timeZone: 'America/Sao_Paulo'
+      };
+
+      const optionsWeekday = {
+        weekday: 'long',
+        timeZone: 'America/Sao_Paulo'
+      };
+
+      const timeString = new Intl.DateTimeFormat('pt-BR', optionsTime).format(now);
+      const dateString = new Intl.DateTimeFormat('pt-BR', optionsDate).format(now);
+      const weekdayString = new Intl.DateTimeFormat('pt-BR', optionsWeekday).format(now);
+
+      document.getElementById('clock').textContent = timeString;
+      document.getElementById('date').textContent = dateString;
+      document.getElementById('weekday').textContent = weekdayString.charAt(0).toUpperCase() + weekdayString.slice(1);
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+
+</body>
+</html>
